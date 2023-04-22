@@ -1,10 +1,15 @@
-from setuptools import find_packages, setup
+from setuptools import setup
 
 setup(
-    name="src",
-    packages=find_packages(),
-    version="0.1.0",
-    description="A short description of the project.",
-    author="Artyom Tsanda",
-    license="MIT",
+    name='moviesurfer',
+    packages=['moviesurfer'],
+    version='0.1.0',
+    description=(
+        'Core library for protyping movie recommendation systems'
+    ),
+    author='Artyom Tsanda, Anna Kiseleva, Islam Yangurazov',
+    license='MIT',
+    entry_points = {
+        'console_scripts': ['moviesurfer=moviesurfer.cli.main:main'],
+    },
 )
