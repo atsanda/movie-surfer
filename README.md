@@ -1,5 +1,4 @@
-Movie-Surfer
-==============================
+# Movie-Surfer
 
 # Installation
 
@@ -12,8 +11,10 @@ pre-commit install
 
 # CLI
 
-Run 
+Run
+
 ```bash
 moviesurfer
 ```
-to get a help message 
+
+to get a help message
