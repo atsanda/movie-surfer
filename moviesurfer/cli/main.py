@@ -34,5 +34,3 @@ def download_data(output_dir = './moviesurfer/data',
     
 def main():
     print("Hello from CLI, functionality is to be added")
-
-download_data()
