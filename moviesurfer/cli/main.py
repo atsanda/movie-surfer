@@ -3,8 +3,12 @@ import wget
 import zipfile
 import logging
 
+
 # Function to download data
-def download_data(output_dir="./moviesurfer/data", url="http://files.grouplens.org/datasets/movielens/ml-25m.zip"):
+def download_data(
+    output_dir="./moviesurfer/data",
+    url="http://files.grouplens.org/datasets/movielens/ml-25m.zip",
+):
     """
     Downloads the MovieLens 25M Dataset, extracts it, and deletes the zip file.
 
@@ -29,6 +33,7 @@ def download_data(output_dir="./moviesurfer/data", url="http://files.grouplens.o
     os.remove(filename)
 
     logging.info("Data downloaded successfully.")
-    
+
+
 def main():
     print("Hello from CLI, functionality is to be added")
