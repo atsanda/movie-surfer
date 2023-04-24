@@ -1,7 +1,8 @@
-import os
-import wget
-import zipfile
 import logging
+import os
+import zipfile
+
+import wget
 
 
 # Function to download data
