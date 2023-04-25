@@ -4,6 +4,10 @@ import zipfile
 
 import wget
 
+logging.basicConfig(format="", level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 
 # Function to download data
 def download_data(
@@ -14,23 +18,35 @@ def download_data(
     Downloads the MovieLens 25M Dataset, extracts it, and deletes the zip file.
 
     :param output_dir: str, the output directory to save the downloaded data
+    :param url: str, the url address to download from
     :return: None
     """
-    logging.basicConfig(level=logging.DEBUG)
 
-    # check if movies.csv file exists in output_dir
+    # Check if movies.csv file exists in output_dir
     movies_csv_file = os.path.join(output_dir, "ml-25m/movies.csv")
 
     if os.path.exists(movies_csv_file):
-        logging.info("Data already exists in the output directory.")
-        return
+        raise Exception("Data already exists in the output directory.")
 
-    logging.info("Downloading the MovieLens 25M Dataset...")
-    filename = wget.download(url, out=output_dir)
+    try:
+        logger.info("Downloading the MovieLens 25M Dataset...")
+        data_zip = wget.download(url, out=output_dir)
 
-    with zipfile.ZipFile(filename, "r") as zip_ref:
-        zip_ref.extractall(output_dir)
+        with zipfile.ZipFile(data_zip, "r") as data_ref:
+            data_ref.extractall(output_dir)
 
-    os.remove(filename)
+        os.remove(data_zip)
 
-    logging.info("Data downloaded successfully.")
+        logger.info("Data downloaded successfully.")
+
+    # Adressing temp files that are created if WGET is interrupted
+    except KeyboardInterrupt:
+        logger.warning("\nDownload interrupting...")
+        parent_dir = os.path.abspath(os.path.join(os.getcwd(), "."))
+        for file_name in os.listdir(parent_dir):
+            if file_name.endswith(".tmp"):
+                file_path = os.path.join(parent_dir, file_name)
+                try:
+                    os.remove(file_path)
+                except Exception as e:
+                    logger.error(f"Error deleting {file_path}: {e}")
