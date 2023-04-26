@@ -5,6 +5,8 @@ from tempfile import TemporaryDirectory
 
 import wget
 
+logger = logging.getLogger(__name__)
+
 
 # Function to download data
 def download_data(
@@ -18,7 +20,6 @@ def download_data(
     :param url: str, the url address to download from
     :return: None
     """
-    logger = logging.getLogger(__name__)
 
     # Check if movies.csv file exists in output_dir
     movies_csv_file = os.path.join(output_dir, "ml-25m/movies.csv")
