@@ -1,12 +1,9 @@
 import logging
 import os
 import zipfile
+from tempfile import TemporaryDirectory
 
 import wget
-
-logging.basicConfig(format="", level=logging.INFO)
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 
 # Function to download data
@@ -21,6 +18,7 @@ def download_data(
     :param url: str, the url address to download from
     :return: None
     """
+    logger = logging.getLogger(__name__)
 
     # Check if movies.csv file exists in output_dir
     movies_csv_file = os.path.join(output_dir, "ml-25m/movies.csv")
@@ -28,25 +26,21 @@ def download_data(
     if os.path.exists(movies_csv_file):
         raise Exception("Data already exists in the output directory.")
 
+    # Download Data while adressing temp files that are created if WGET is interrupted
     try:
-        logger.info("Downloading the MovieLens 25M Dataset...")
-        data_zip = wget.download(url, out=output_dir)
+        with TemporaryDirectory() as temp_dir:
+            temp_file = os.path.join(temp_dir, "temp_folder")
+            logger.warning("Downloading the MovieLens 25M Dataset...")
+            wget.download(url, temp_file)
 
-        with zipfile.ZipFile(data_zip, "r") as data_ref:
-            data_ref.extractall(output_dir)
+            with zipfile.ZipFile(temp_file, "r") as data_ref:
+                data_ref.extractall(output_dir)
 
-        os.remove(data_zip)
+            os.remove(temp_file)
 
-        logger.info("Data downloaded successfully.")
+        logger.warning("Data downloaded successfully.")
 
-    # Adressing temp files that are created if WGET is interrupted
     except KeyboardInterrupt:
-        logger.warning("\nDownload interrupting...")
-        parent_dir = os.path.abspath(os.path.join(os.getcwd(), "."))
-        for file_name in os.listdir(parent_dir):
-            if file_name.endswith(".tmp"):
-                file_path = os.path.join(parent_dir, file_name)
-                try:
-                    os.remove(file_path)
-                except Exception as e:
-                    logger.error(f"Error deleting {file_path}: {e}")
+        logging.warning("\nThe download was interrupted.")
+        if os.path.exists(temp_file):
+            os.remove(temp_file)
