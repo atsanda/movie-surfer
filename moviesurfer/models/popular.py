@@ -53,7 +53,7 @@ class MostPopular:
         )
         logger.debug(f"{MostPopular} is successfully fit.")
 
-    def predict(self, n: int, references: Optional[Iterable[int]] = None):
+    def predict(self, n: int, seen_movies: Optional[Iterable[int]] = None):
         """
         Generates recommendations based on the most popular movies.
         The method excludes already viewed movies mentioned in the references.
@@ -65,13 +65,15 @@ class MostPopular:
         Returns:
             list[int]: A list of item IDs representing the recommendations.
         """
-        references = set(references or [])
+        seen_movies = set(seen_movies or [])
         recs = []
+        # here `cycle` is used to repeat movies
+        # to pad predictions to required size
         for i, movie in enumerate(cycle(self.popularity)):
             is_first_cycle = i < len(self.popularity)
 
             # otherwise it leads to an infinite loop
-            if is_first_cycle and movie in references:
+            if is_first_cycle and movie in seen_movies:
                 continue
 
             recs.append(int(movie))
