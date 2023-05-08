@@ -18,3 +18,4 @@ def filename_from_path(full_path: str) -> str:
     """
     original_file_name = os.path.basename(full_path)
     original_file_name = os.path.splitext(original_file_name)[0]
+    return original_file_name
