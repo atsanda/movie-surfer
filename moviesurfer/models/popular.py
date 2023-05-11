@@ -59,7 +59,7 @@ class MostPopular:
         The method excludes already viewed movies mentioned in the references.
 
         Args:
-            references (list[int]): A list of already chosen item IDs.
+            seen_movies (list[int]): A list of already chosen item IDs.
             n (int): The number of recommendations to generate.
 
         Returns:
