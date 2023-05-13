@@ -1,16 +1,26 @@
 import click
+import logging
 
-from moviesurfer.data.make_dataset import make_dataset
+from moviesurfer.data.download_data import download_data
+logger = logging.getLogger(__name__)
 
+@click.group(chain=True)
+def cli():
+    logger.info("moviesurfer cli started")
 
-@click.command()
-@click.argument("input_filepath", type=click.Path(exists=True))
-@click.argument("output_filepath", type=click.Path())
-def main(input_filepath, output_filepath):
+@cli.command()
+@click.argument(
+    'download'
+)
+def data(download):
     """Runs data processing scripts to turn raw data from (../raw) into
-    cleaned data ready to be analyzed (saved in ../processed).
-    """
-    make_dataset(input_filepath, output_filepath)
+        cleaned data ready to be analyzed (saved in ../processed).
+        """
+    try:
+        download_data()
+    except FileExistsError:
+        logger.error("No need to call 'download data', file exists")
 
 
-main()
+if __name__ == '__main__':
+    cli()

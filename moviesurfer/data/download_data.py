@@ -25,7 +25,7 @@ def download_data(
     movies_csv_file = os.path.join(output_dir, "ml-25m/movies.csv")
 
     if os.path.exists(movies_csv_file):
-        raise Exception("Data already exists in the output directory.")
+        raise FileExistsError("Data already exists in the output directory.")
 
     # Download Data while adressing temp files that are created if WGET is interrupted
     try:
