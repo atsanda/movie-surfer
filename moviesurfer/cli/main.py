@@ -7,9 +7,10 @@ from moviesurfer.data.download_data import download_data
 logger = logging.getLogger(__name__)
 
 
-@click.group(chain = True)
+@click.group(chain=True)
 def cli():
     logger.info("moviesurfer cli started")
+
 
 @cli.command
 def data():
@@ -25,6 +26,7 @@ def download():
         download_data()
     except FileExistsError:
         click.echo("No need to call 'download data', file exists")
+
 
 if __name__ == "__main__":
     cli()
