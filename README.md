@@ -15,40 +15,21 @@ The project leverages various techniques and algorithms commonly used in recomme
 
 ## Installation
 
-```bash
-git clone git@github.com:atsanda/movie-surfer.git
-python -m venv env
-pip install -r requirements.txt
-```
-
-## Poetrt installation:
-
-To install Poetry, follow these steps:
-
-1. Open the command prompt (cmd) and run the following command:
-   `curl -sSL https://install.python-poetry.org | python3 - --git https://github.com/python-poetry/poetry.git@master`
-
-2. Check the command line log for the actual environment location. It may have moved due to redirects, links, or junctions. The requested location is "C:\Users\user\AppData\Roaming\pypoetry\venv\Scripts\python.exe" and the actual location is "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\Roaming\pypoetry\venv\Scripts\python.exe".
-
-3. Add the actual location to the PATH in System Variables.
-
-4. Restart the command prompt.
-
-5. Verify that Poetry is installed correctly by running the command `poetry --version` in the command prompt.
+`git clone git@github.com:atsanda/movie-surfer.git`: Clone the project from the remote repository.
+`poetry install`: Install all the dependencies listed in the pyproject.toml file.
+`poetry shell`: Activate the virtual environment.
 
 ## Poetry Commands:
 
 Use the following Poetry commands to manage dependencies:
-
-`poetry install`: Install all the dependencies listed in the pyproject.toml file.
-
-`poetry shell`: Activate the virtual environment. If you encounter an error that says "\Scripts\activate.ps1 cannot be loaded because running scripts is disabled on this system", you need to change the execution policy for your Windows OS by running Set-ExecutionPolicy -ExecutionPolicy RemoteSigned in PowerShell (run as administrator).
 
 `poetry add`: Add a new package to the dependency management system. For example, to add the wget package with version 3.2, run the following command:
 
 `poetry add wget==3.2`
 
 `poetry remove`: This command allows you to remove a package from project. Poetry will automatically update the pyproject.toml file and remove the package from the virtual environment.
+
+`poetry install --with group_name`: Install an optional group of packages.
 
 ## Project structure
 
