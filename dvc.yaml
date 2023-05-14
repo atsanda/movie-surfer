@@ -1,0 +1,16 @@
+stages:
+  download:
+    cmd: moviesurfer data download
+    deps:
+      - moviesurfer/cli/data/download.py
+      - moviesurfer/data/download_data.py
+    outs:
+      - data/raw/ml-25m
+  train-test-split:
+    cmd: moviesurfer data train-test-split
+    deps:
+      - moviesurfer/cli/data/split.py
+      - moviesurfer/data/split.py
+      - data/raw/ml-25m
+    outs:
+      - data/processed/ml-25m
