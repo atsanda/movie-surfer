@@ -7,17 +7,17 @@ from moviesurfer.data.download_data import download_data
 logger = logging.getLogger(__name__)
 
 
-@click.group(chain=True)
+@click.group()
 def cli():
     logger.info("moviesurfer cli started")
 
 
-@cli.command
+@cli.group()
 def data():
     pass
 
 
-@cli.command
+@data.command()
 def download():
     """Runs data processing scripts to turn raw data from (../raw) into
     cleaned data ready to be analyzed (saved in ../processed).
