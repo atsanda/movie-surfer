@@ -5,5 +5,5 @@
 ['remote "remote"']
     url = s3://movie-surfer-bucket
     endpointurl = https://storage.yandexcloud.net
-    access_key_id = YCAJEVaPWoKki-FiWl3ZkyXl5
-    secret_access_key = YCPYE2uBZ89bn18CAd2yuxgT1zk3_Yy6PXRQd1zl
+    access_key_id = your_access_key_id
+    secret_access_key = your_secret_access_key
