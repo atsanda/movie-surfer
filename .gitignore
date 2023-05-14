@@ -160,3 +160,7 @@ cython_debug/
 .idea/
 
 docs/_build
+
+
+# downloaded files
+moviesurfer/cli/moviesurfer/data/ml-25m/*
