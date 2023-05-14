@@ -8,6 +8,6 @@ setup(
     author="Artyom Tsanda, Anna Kiseleva, Islam Yangurazov",
     license="MIT",
     entry_points={
-        "console_scripts": ["moviesurfer=moviesurfer.cli.main:main"],
+        "console_scripts": ["moviesurfer=moviesurfer.cli.main:cli"],
     },
 )

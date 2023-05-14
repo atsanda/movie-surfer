@@ -15,11 +15,21 @@ The project leverages various techniques and algorithms commonly used in recomme
 
 ## Installation
 
-```bash
-git clone git@github.com:atsanda/movie-surfer.git
-python -m venv env
-pip install -r requirements.txt
-```
+`git clone git@github.com:atsanda/movie-surfer.git`: Clone the project from the remote repository.
+`poetry install`: Install all the dependencies listed in the pyproject.toml file.
+`poetry shell`: Activate the virtual environment.
+
+## Poetry Commands:
+
+Use the following Poetry commands to manage dependencies:
+
+`poetry add`: Add a new package to the dependency management system. For example, to add the wget package with version 3.2, run the following command:
+
+`poetry add wget==3.2`
+
+`poetry remove`: This command allows you to remove a package from project. Poetry will automatically update the pyproject.toml file and remove the package from the virtual environment.
+
+`poetry install --with group_name`: Install an optional group of packages.
 
 ## Project structure
 
