@@ -16,7 +16,9 @@ The project leverages various techniques and algorithms commonly used in recomme
 ## Installation
 
 `git clone git@github.com:atsanda/movie-surfer.git`: Clone the project from the remote repository.
+
 `poetry install`: Install all the dependencies listed in the pyproject.toml file.
+
 `poetry shell`: Activate the virtual environment.
 
 ## Poetry Commands:
@@ -30,6 +32,20 @@ Use the following Poetry commands to manage dependencies:
 `poetry remove`: This command allows you to remove a package from project. Poetry will automatically update the pyproject.toml file and remove the package from the virtual environment.
 
 `poetry install --with group_name`: Install an optional group of packages.
+
+## DVC Commands:
+
+`dvc add`: Adds a file to the DVC project, tracking it and storing its data in the cache.
+
+`dvc run`: Runs a command and creates an output file that is tracked by DVC.
+
+`dvc push`: Pushes data and pipeline changes to remote storage.
+
+`dvc pull`: Pulls data and pipeline changes from remote storage.
+
+## DVC-S3:
+
+To access S3 storage via DVC you need to pass credentials to the corresponding placeholders for "your_access_key_id" and "your_secret_access_key" in .dvc\config.
 
 ## Project structure
 

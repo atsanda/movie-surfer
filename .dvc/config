@@ -1,0 +1,9 @@
+[core]
+    remote = remote
+    autostage = false
+
+['remote "remote"']
+    url = s3://movie-surfer-bucket
+    endpointurl = https://storage.yandexcloud.net
+    access_key_id = your_access_key_id
+    secret_access_key = your_secret_access_key
