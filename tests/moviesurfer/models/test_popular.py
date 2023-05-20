@@ -34,6 +34,6 @@ def test_predicts_most_popular(trained_most_popular_model: MostPopular):
 
 
 def test_excludes_already_viewed(trained_most_popular_model: MostPopular):
-    recs = trained_most_popular_model.predict(references=[1], n=1)
+    recs = trained_most_popular_model.predict(seen_movies=[1], n=1)
     assert len(recs) == 1
     assert recs[0] == 2
