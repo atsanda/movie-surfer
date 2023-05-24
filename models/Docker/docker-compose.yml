@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRESUSER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+
+  pg_admin:
+    container_name: pg_admin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - ./Docker/pgadmin/:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+
+  mlflow:
+    container_name: mlflow_server
+    restart: always
+    build:
+      context: .
+      dockerfile: mlflow_image/Dockerfile
+    image: mlflow_server
+    volumes:
+      - ./mlflow_test.py:/mlflow_test.py
+    ports:
+      - "5000:5000"
+    networks:
+      - postgres
+    environment:
+      - POSTGRES_USER=${POSTGRESUSER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - MLFLOW_S3_ENDPOINT_URL=${MLFLOW_S3_ENDPOINT_URL}
+    command: >
+      sh -c "mlflow server \
+      --backend-store-uri 'postgresql://${POSTGRESUSER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}' \
+      --default-artifact-root 's3://${AWS_S3_BUCKET}/' \
+      --host 0.0.0.0"
+
+volumes:
+  postgres:
+
+networks:
+  postgres:
+    driver: bridge
