@@ -40,6 +40,9 @@ def train_test_split_in_time(
                 offset_units="days"
             )
     """
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder, exist_ok=True)
+
     df = pd.read_csv(user_movies_interactions_csv)
     logger.debug(f"Data is loaded from {user_movies_interactions_csv}.")
     timestamps = pd.to_datetime(df[timestamp_column], unit="s")
