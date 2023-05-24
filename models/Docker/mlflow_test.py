@@ -1,21 +1,18 @@
 import mlflow
-import os
 from dotenv import load_dotenv
-from mlflow.models.signature import infer_signature
-
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.datasets import load_iris
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
 # Load environment variables from .env file
-load_dotenv('.env')
+load_dotenv(".env")
 
 # Set MLflow tracking URI
 mlflow.set_tracking_uri("http://localhost:5000")
 
 # Set MLflow experiment
-mlflow.set_experiment('mlflow_test15')
+mlflow.set_experiment("mlflow_test15")
 
 # Enable MLflow autologging
 mlflow.sklearn.autolog()

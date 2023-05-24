@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
@@ -6,14 +6,14 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_USER: ${POSTGRESUSER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
     ports:
-      - '5432:5432'
+      - "5432:5432"
     networks:
       - postgres
 
@@ -27,7 +27,7 @@ services:
     volumes:
       - ./Docker/pgadmin/:/var/lib/pgadmin
     ports:
-      - '5050:80'
+      - "5050:80"
     networks:
       - postgres
 
@@ -45,7 +45,7 @@ services:
     networks:
       - postgres
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_USER=${POSTGRESUSER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
@@ -53,7 +53,7 @@ services:
       - MLFLOW_S3_ENDPOINT_URL=${MLFLOW_S3_ENDPOINT_URL}
     command: >
       sh -c "mlflow server \
-      --backend-store-uri 'postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}' \
+      --backend-store-uri 'postgresql://${POSTGRESUSER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}' \
       --default-artifact-root 's3://${AWS_S3_BUCKET}/' \
       --host 0.0.0.0"
 
@@ -63,8 +63,3 @@ volumes:
 networks:
   postgres:
     driver: bridge
-
-
-
-
-

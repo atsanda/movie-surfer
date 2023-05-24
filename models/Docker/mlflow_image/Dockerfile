@@ -3,7 +3,7 @@ FROM python:3.9
 # Install required dependencies
 RUN pip install mlflow scikit-learn psycopg2
 
-# Create a directory for the MLflow script
+# Create a directory for the MLflow
 RUN mkdir /app
 
 # Copy the MLflow script to the container
