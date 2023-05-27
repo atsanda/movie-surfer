@@ -32,3 +32,18 @@ stages:
       md5: 5b3efd91c9cc6cd155a70787b9c2f4cf.dir
       size: 1156670716
       nfiles: 7
+  train-most-popular:
+    cmd: python prototypes/most-popular/main.py train ./data ./models
+    deps:
+    - path: data/processed/ml-25m
+      md5: 83b4b2baa89025af8f754f3e0f6855b5.dir
+      size: 653260923
+      nfiles: 2
+    - path: prototypes/most-popular/main.py
+      md5: 727ca04ac3fed45dfa65595b00e19002
+      size: 3328
+    outs:
+    - path: models/most-popular
+      md5: 4cba38393fa5e65ed9923c0e635dea18.dir
+      size: 1160
+      nfiles: 1
