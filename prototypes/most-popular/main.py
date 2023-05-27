@@ -1,7 +1,9 @@
+import pickle
 from pathlib import Path
+from sys import version_info
 
 import click
-import config as cfg
+import cloudpickle
 import mlflow
 import mlflow.pyfunc
 import pandas as pd
@@ -10,6 +12,31 @@ from moviesurfer.metrics.classification import MeanAveragePrecisionTopK, Precisi
 from moviesurfer.models import MostPopular
 
 PROTOTYPE_NAME = "most-popular"
+
+conda_env = {
+    "channels": ["defaults"],
+    "dependencies": [
+        f"python={version_info.major}.{version_info.minor}.{version_info.micro}",
+        "pip",
+        {
+            "pip": [
+                f"mlflow=={mlflow.__version__}",
+                "moviesurfer @ https://github.com/atsanda/movie-surfer",
+                f"cloudpickle=={cloudpickle.__version__}",
+            ],
+        },
+    ],
+    "name": "moviesurfer_env",
+}
+
+
+class MlFlowModelWrapper(mlflow.pyfunc.PythonModel):
+    def load_context(self, context):
+        with open(context.artifacts["model"], "rb") as f:
+            self.model = pickle.load(f)
+
+    def predict(self, context, model_input: dict[str, int | list[int]]) -> list[int]:
+        return self.model.predict(**model_input)
 
 
 @click.group()
@@ -42,9 +69,9 @@ def train(data_folder, models_folder):
 
         model_info = mlflow.pyfunc.log_model(
             artifact_path=PROTOTYPE_NAME,
-            python_model=cfg.MlFlowModelWrapper(),
+            python_model=MlFlowModelWrapper(),
             artifacts={"model": file_path},
-            conda_env=cfg.conda_env,
+            conda_env=conda_env,
             registered_model_name=PROTOTYPE_NAME,
         )
 

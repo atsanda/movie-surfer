@@ -40,8 +40,8 @@ stages:
       size: 653260923
       nfiles: 2
     - path: prototypes/most-popular/main.py
-      md5: 51d6a16f769e73d3daa53ba61e0cc431
-      size: 2527
+      md5: 727ca04ac3fed45dfa65595b00e19002
+      size: 3328
     outs:
     - path: models/most-popular
       md5: 4cba38393fa5e65ed9923c0e635dea18.dir
