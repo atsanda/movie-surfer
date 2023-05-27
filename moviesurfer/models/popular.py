@@ -4,10 +4,12 @@ from typing import Iterable, Optional
 
 import pandas as pd
 
+from .base import Parametrizable, Serializable
+
 logger = logging.getLogger(__name__)
 
 
-class MostPopular:
+class MostPopular(Parametrizable, Serializable):
     """
     A baseline recommendation model based on the most
     popular item in the train set.
@@ -65,7 +67,9 @@ class MostPopular:
         Returns:
             list[int]: A list of item IDs representing the recommendations.
         """
-        seen_movies = set(seen_movies or [])
+        if seen_movies is None:
+            seen_movies = []
+        seen_movies = set(seen_movies)
         recs = []
         # here `cycle` is used to repeat movies
         # to pad predictions to required size

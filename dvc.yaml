@@ -14,3 +14,10 @@ stages:
       - data/raw/ml-25m
     outs:
       - data/processed/ml-25m
+  train-most-popular:
+    cmd: python prototypes/most-popular/main.py train ./data ./models
+    deps:
+      - prototypes/most-popular/main.py
+      - data/processed/ml-25m
+    outs:
+      - models/most-popular

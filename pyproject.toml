@@ -16,6 +16,8 @@ wget = "3.2"
 unzip = "^1.0.0"
 dvc = "^2.56.0"
 mlflow = "^2.3.2"
+ipython = "^8.13.2"
+dvc-s3 = "^2.22.0"
 
 [tool.poetry.group.docs]
 optional = true
