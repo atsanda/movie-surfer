@@ -25,11 +25,12 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: root
     volumes:
-      - ./Docker/pgadmin/:/var/lib/pgadmin
+      - ./pgadmin/sessions:/var/lib/pgadmin/sessions
     ports:
       - "5050:80"
     networks:
       - postgres
+    user: root
 
   mlflow:
     container_name: mlflow_server
@@ -52,10 +53,10 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - MLFLOW_S3_ENDPOINT_URL=${MLFLOW_S3_ENDPOINT_URL}
     command: >
-      sh -c "mlflow server \
-      --backend-store-uri 'postgresql://${POSTGRESUSER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}' \
-      --default-artifact-root 's3://${AWS_S3_BUCKET}/' \
-      --host 0.0.0.0"
+      mlflow server
+      --backend-store-uri "postgresql://${POSTGRESUSER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
+      --default-artifact-root "s3://${AWS_S3_BUCKET}/"
+      --host 0.0.0.0
 
 volumes:
   postgres:
