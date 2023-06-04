@@ -1,7 +1,7 @@
 FROM python:3.9
 
 # Install required dependencies
-RUN pip install mlflow scikit-learn psycopg2
+RUN pip install mlflow scikit-learn psycopg2 boto3
 
 # Create a directory for the MLflow
 RUN mkdir /app
