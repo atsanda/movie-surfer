@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 load_dotenv(".env")
 
 # Set MLflow tracking URI
-mlflow.set_tracking_uri("http://localhost:5000")
+mlflow.set_tracking_uri("http://212.233.90.35:5000")
 
 # Set MLflow experiment
 mlflow.set_experiment("mlflow_test15")
